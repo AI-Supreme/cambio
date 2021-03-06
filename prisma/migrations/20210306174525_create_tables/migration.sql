@@ -2,9 +2,10 @@
 CREATE TABLE "countries" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "corrency_id" INTEGER NOT NULL,
-    "iso_4217" TEXT NOT NULL,
-    "cambio" JSONB NOT NULL,
+    "currency_id" INTEGER NOT NULL,
+    "symbol" TEXT NOT NULL,
+    "cambio" JSONB,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY ("id")
 );
@@ -13,6 +14,7 @@ CREATE TABLE "countries" (
 CREATE TABLE "currencies" (
     "id" SERIAL NOT NULL,
     "currency" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY ("id")
 );
@@ -70,7 +72,10 @@ CREATE TABLE "genders" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "countries.iso_4217_unique" ON "countries"("iso_4217");
+CREATE UNIQUE INDEX "countries.name_unique" ON "countries"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "currencies.currency_unique" ON "currencies"("currency");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users.email_unique" ON "users"("email");
@@ -82,7 +87,7 @@ CREATE UNIQUE INDEX "people.email_unique" ON "people"("email");
 CREATE UNIQUE INDEX "genders.gender_unique" ON "genders"("gender");
 
 -- AddForeignKey
-ALTER TABLE "countries" ADD FOREIGN KEY ("corrency_id") REFERENCES "currencies"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "countries" ADD FOREIGN KEY ("currency_id") REFERENCES "currencies"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "people" ADD FOREIGN KEY ("gender_id") REFERENCES "genders"("id") ON DELETE CASCADE ON UPDATE CASCADE;

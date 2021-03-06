@@ -830,6 +830,11 @@ negotiator@0.6.2:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.2.tgz#feacf7ccf525a77ae9634436a64883ffeca346fb"
   integrity sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw==
 
+node-downloader-helper@^1.0.17:
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/node-downloader-helper/-/node-downloader-helper-1.0.17.tgz#701b1841676fe25887f0ebc77ffa2ae87c174359"
+  integrity sha512-EnaY0uBSdVo4kYfSmkDlTJG8GqmS8fbfoOau/OsTnikCwt9vsU0w8REVxwWbVz7DzNtHSEBKpU6jV1hmtlx0Dg==
+
 normalize-package-data@^2.3.2, normalize-package-data@^2.3.4:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/normalize-package-data/-/normalize-package-data-2.5.0.tgz#e66db1838b200c1dfc233225d12cb36520e234a8"
