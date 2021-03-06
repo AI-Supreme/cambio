@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model countries {
+  id            Int     @id @default(autoincrement())
+  name          String
+  corrency      currencies @relation(fields: [corrency_id], references: [id])
+  corrency_id   Int
+  iso_4217      String  @unique
+  cambio        Json
+}
+
+model currencies {
+  id            Int     @id @default(autoincrement())
+  currency      String
+  countries     countries[]
+}
+
+model users {
+  id            String    @id @default(uuid())
+  name          String
+  company       String
+  email         String    @unique
+  tel           String
+  password      String
+  person_api    Boolean   @default(false)
+  cambio_api    Boolean   @default(false)
+  created_at    DateTime  @default(now())
+  updated_at    DateTime
+  people    people[]
+}
+
+model people {
+  id            String    @id @default(uuid())
+  nome          String
+  email         String    @unique
+  tel           String
+  tel2          String?
+  mae           String?
+  pai           String?
+  genders       genders    @relation(fields: [gender_id], references: [id])
+  gender_id     Int
+  escolaridade  String?
+  profissao     String?
+  nascido       String?
+  obito         Boolean  @default(false)
+  codigo_postal Int?
+  provincia     String?
+  cidade        String?
+  bairro        String?
+  quarteirao    Int?
+  casa          Int?
+  users         users     @relation(fields: [user_id], references: [id])
+  user_id       String
+  created_at    DateTime  @default(now())
+  updated_at    DateTime
+  deleted       Boolean  @default(false)
+}
+
+model genders {
+  id        Int @id @default(autoincrement())
+  gender    String  @unique
+  people    people[]
+}
