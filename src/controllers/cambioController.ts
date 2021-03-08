@@ -1,28 +1,14 @@
 import { Request, Response } from "express";
-import fs from 'fs';
-const { DownloaderHelper } = require('node-downloader-helper');
-
-const fileUrl = 'http://www.bancomoc.mz/Files/REFR/ZMMIREFR.pdf';
-
+import alphaVantageApi from "../services/alphaVantageApi";
 
 export default {
-  async index(request: Request, response: Response) {    
-    const dl = new DownloaderHelper(fileUrl, __dirname, { fileName: 'codedCambio.pdf' });
+  async index(request: Request, response: Response) {   
+    const { from_symbol, to_symbol } = request.query;
 
-    dl.on('end', () => {
-      const readStream = fs.createReadStream('./src/controllers/codedCambio.pdf')
-      const writeStream = fs.createWriteStream('./src/controllers/cambio.txt', 'utf8')
-      
-      readStream.on('data', (chunk) => {
-        writeStream.write(chunk, (err) => {
-          if(err) return console.log(err);
-        })
-      })
+    const alphaVantageResponse = await alphaVantageApi.get(
+      `?function=FX_DAILY&from_symbol=${from_symbol}&to_symbol=${to_symbol}&apikey=${process.env.ALPHA_VANTAGE_API_KAY}`
+    )
 
-      readStream.pipe(writeStream);
-    })
-    dl.start();
-
-    response.json('You are going well Boss');
+    response.json(alphaVantageResponse.data['Time Series FX (Daily)'])
   }
 }

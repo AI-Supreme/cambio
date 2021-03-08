@@ -15,35 +15,75 @@ model countries {
   name          String      @unique
   currency      currencies  @relation(fields: [currency_id], references: [id])
   currency_id   Int
-  symbol      String
-  cambio        Json?
   created_at    DateTime    @default(now())
 }
 
 model currencies {
-  id            Int     @id @default(autoincrement())
-  currency      String  @unique
-  countries     countries[]
-  created_at    DateTime  @default(now())
+  id                  Int     @id  @default(autoincrement())
+  currency            String  @unique
+  countries           countries[]
+  symbol              String
+  iso_4217            String  @unique
+  daily_exchange      daily_exchange[]
+  weekly_exchange     weekly_exchange[]
+  monthly_exchange    monthly_exchange[]
+  created_at          DateTime  @default(now())
+}
+
+model daily_exchange {
+  id              Int             @id @default(autoincrement())
+  currencies      currencies    @relation(fields: [currency_id], references: [id])
+  currency_id     Int
+  open            Int
+  high            Int
+  low             Int
+  close           Int
+  date            DateTime
+}
+
+model weekly_exchange {
+  id      Int       @id @default(autoincrement())
+  currencies      currencies    @relation(fields: [currency_id], references: [id])
+  currency_id     Int
+  open    Int
+  high    Int
+  low     Int
+  close   Int
+  date    DateTime
+}
+
+model monthly_exchange {
+  id      Int       @id @default(autoincrement())
+  currencies      currencies    @relation(fields: [currency_id], references: [id])
+  currency_id     Int
+  open    Int
+  high    Int
+  low     Int
+  close   Int
+  date    DateTime
 }
 
 model users {
   id            String    @id @default(uuid())
   name          String
+  l_name        String
   company       String
   email         String    @unique
   tel           String
   password      String
   person_api    Boolean   @default(false)
   cambio_api    Boolean   @default(false)
+  last_access   DateTime
   created_at    DateTime  @default(now())
-  updated_at    DateTime
-  people    people[]
+  updated_at    DateTime  @default(now())
+  people        people[]
+  address       address?
 }
 
 model people {
   id            String    @id @default(uuid())
   nome          String
+  l_name        String
   email         String    @unique
   tel           String
   tel2          String?
@@ -55,17 +95,73 @@ model people {
   profissao     String?
   nascido       String?
   obito         Boolean  @default(false)
-  codigo_postal Int?
-  provincia     String?
-  cidade        String?
-  bairro        String?
-  quarteirao    Int?
-  casa          Int?
+  address       address?
   users         users     @relation(fields: [user_id], references: [id])
   user_id       String
   created_at    DateTime  @default(now())
-  updated_at    DateTime
+  updated_at    DateTime  @default(now())
   deleted       Boolean  @default(false)
+}
+
+model address {
+  id            Int @id @default(autoincrement())
+  provinces     provinces?
+  cities        cities?
+  neighborhood  neighborhoods?
+  block         blocks?
+  house_number  Int?
+  users         users?     @relation(fields: [user_id], references: [id])
+  user_id       String?
+  people        people?    @relation(fields: [person_id], references: [id])
+  person_id     String?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @default(now())
+}
+
+model provinces {
+  id            Int @id @default(autoincrement())
+  name          String
+  cities        cities[]
+  address       address?     @relation(fields: [address_id], references: [id])
+  address_id    Int?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @default(now())
+}
+
+model cities {
+  id            Int @id @default(autoincrement())
+  name          String
+  Zip_code      Int?
+  neighborhood  neighborhoods[]
+  provinces     provinces  @relation(fields: [province_id], references: [id])
+  province_id   Int
+  address       address?     @relation(fields: [address_id], references: [id])
+  address_id    Int?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @default(now())
+}
+
+model neighborhoods {
+  id            Int @id @default(autoincrement())
+  name          String
+  block         blocks[]
+  cities        cities  @relation(fields: [city_id], references: [id])
+  city_id       Int
+  address       address?     @relation(fields: [address_id], references: [id])
+  address_id    Int?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @default(now())
+}
+
+model blocks {
+  id                Int @id @default(autoincrement())
+  block             Int
+  neighborhoods     neighborhoods  @relation(fields: [neighborhood_id], references: [id])
+  neighborhood_id   Int
+  address           address?     @relation(fields: [address_id], references: [id])
+  address_id        Int?
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @default(now())
 }
 
 model genders {
