@@ -70,6 +70,7 @@ model users {
   company       String
   email         String    @unique
   tel           String
+  tel2          String?
   password      String
   person_api    Boolean   @default(false)
   cambio_api    Boolean   @default(false)

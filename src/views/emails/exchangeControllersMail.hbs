@@ -1,0 +1,49 @@
+<style>
+  .container {
+    max-width: 63rem;
+    height: 100vh;
+    padding: 6%;
+  }
+
+  .container .header {
+    width: 100%;
+    height: 9rem;
+    background-color: #232136;
+    padding: 0 2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container .header h3 {
+    color: red;
+    font-size: 1.6rem;
+    letter-spacing: 0.3rem;
+  }
+
+  p,
+  label {
+    letter-spacing: 0.2rem;
+  }
+
+  @media (min-width: 416px) {
+    .container .header {
+      height: 13rem;
+    }
+
+    .container .header h3 {
+      font-size: 1.9rem;
+    }
+  }
+</style>
+
+<div class="container">
+  <header class="header">
+    <h3>Error getting {{time}} exchange!</h3>
+  </header>
+  <br>
+  <label>Currency is {{currency}}.</label>
+  <p>You must see what's going wrong.</p>
+  <p>It looks like we have problem with ALPHA VANTAGE API</p>
+</div>
