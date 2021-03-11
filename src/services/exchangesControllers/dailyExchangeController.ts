@@ -10,7 +10,7 @@ const dailyExchange = async () => {
   let count = 0;
 
   countries.forEach(country => {
-    setTimeout(() => {
+    setInterval(() => {
       alphaVantageApi.get(
       `?function=FX_DAILY&from_symbol=MZN&to_symbol=${country.iso_4217}&apikey=${process.env.ALPHA_VANTAGE_API_KAY}`
       ).then(exchangeRate => {
@@ -38,7 +38,7 @@ const dailyExchange = async () => {
 
         console.log('Error ' + count+' to getting data');
       })
-    }, 3000)
+    }, 13000)
   })
 }
 
