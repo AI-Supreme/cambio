@@ -11,56 +11,57 @@ generator client {
 }
 
 model countries {
-  id            Int         @id @default(autoincrement())
-  name          String      @unique
-  currency      currencies  @relation(fields: [currency_id], references: [id])
-  currency_id   Int
-  created_at    DateTime    @default(now())
+  id                  Int         @id @default(autoincrement())
+  name                String      @unique
+  iso_4217            String      @unique
+  currency            currencies  @relation(fields: [currency_id], references: [id])
+  currency_id         Int
+  daily_exchange      daily_exchange[]
+  weekly_exchange     weekly_exchange[]
+  monthly_exchange    monthly_exchange[]
+  created_at          DateTime    @default(now())
 }
 
 model currencies {
   id                  Int     @id  @default(autoincrement())
-  currency            String  @unique
-  countries           countries[]
+  name                String
   symbol              String
-  iso_4217            String  @unique
-  daily_exchange      daily_exchange[]
-  weekly_exchange     weekly_exchange[]
-  monthly_exchange    monthly_exchange[]
+  countries           countries[]
   created_at          DateTime  @default(now())
+  @@unique([name, symbol])
 }
 
 model daily_exchange {
   id              Int             @id @default(autoincrement())
-  currencies      currencies    @relation(fields: [currency_id], references: [id])
+  countries       countries    @relation(fields: [currency_id], references: [id])
   currency_id     Int
-  open            Int
-  high            Int
-  low             Int
-  close           Int
+  open            String
+  high            String
+  low             String
+  close           String
   date            DateTime
 }
 
 model weekly_exchange {
-  id      Int       @id @default(autoincrement())
-  currencies      currencies    @relation(fields: [currency_id], references: [id])
-  currency_id     Int
-  open    Int
-  high    Int
-  low     Int
-  close   Int
-  date    DateTime
+  id            Int       @id @default(autoincrement())
+  countries     countries    @relation(fields: [currency_id], references: [id])
+  currency_id   Int
+  open          String
+  high          String
+  low           String
+  close         String
+  date          DateTime
 }
 
 model monthly_exchange {
-  id      Int       @id @default(autoincrement())
-  currencies      currencies    @relation(fields: [currency_id], references: [id])
-  currency_id     Int
-  open    Int
-  high    Int
-  low     Int
-  close   Int
-  date    DateTime
+  id            Int       @id @default(autoincrement())
+  countries     countries    @relation(fields: [currency_id], references: [id])
+  currency_id   Int
+  open          String
+  high          String
+  low           String
+  close         String
+  date          DateTime
 }
 
 model users {

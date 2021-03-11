@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import saveCountry, { countryData } from "../entity/country/create";
+import saveCurrencies, { CurrencyData } from "../entity/country/create";
 
 export default {
   async create(request: Request, response: Response) {
-    const countries = request.body;
-    const data: countryData[] = countries;
+    const currencies = request.body;
+    const data: CurrencyData[] = currencies;
 
-    await saveCountry(data)
+    await saveCurrencies(data)
     
     response.status(200).json({message: 'Countries saved!!'})
   }
