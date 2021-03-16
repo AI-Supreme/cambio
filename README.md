@@ -1,7 +1,7 @@
 # cambio
 
-Take daily pdf that's given by BANCO DE MOÇAMBIQUE [daily PDF](http://www.bancomoc.mz/Files/REFR/ZMMIREFR.pdf)
-make the api that return the exchange of the day to the Mozambican currency and foreign currency.
+### Rxchange rates for Mozambican currency and foreign currencies.
 
-For more than 30 currency
+Take daily pdf that's given by BANCO DE MOÇAMBIQUE [daily PDF](http://www.bancomoc.mz/Files/REFR/ZMMIREFR.pdf)
+extracts exchange rates. returns the data by its EndPoints
 
