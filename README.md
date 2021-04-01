@@ -1,7 +1,7 @@
 # cambio
 
-### Rxchange rates for Mozambican currency and foreign currencies.
+### Rxchange rates for Mozambican currency to foreign currencies.
 
-Take daily pdf that's given by BANCO DE MOÇAMBIQUE [daily PDF](http://www.bancomoc.mz/Files/REFR/ZMMIREFR.pdf)
-extracts exchange rates. returns the data by its EndPoints
+Take daily exchange rates given by BANCO DE MOÇAMBIQUE [daily PDF](http://www.bancomoc.mz/Files/REFR/ZMMIREFR.pdf) and other sources 
+extracts exchange rates. return Rxchange rates for Mozambican currency to foreign currencies
 
